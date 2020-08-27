@@ -41,7 +41,7 @@
           </td>
         </tr>
     </table>
-    <div id = "banner" v-if="maxNomination()">
+    <div id="banner" v-if="maxNomination() === true">
       Maximum number of nominations reached
     </div>
   </div>
@@ -228,7 +228,6 @@ button:disabled {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  opacity: 60%;
   background-color: #66ffc2;
   border: 1px solid #003300;
   border-radius: 25px;
