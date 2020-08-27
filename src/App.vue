@@ -60,6 +60,7 @@ export default {
       searchQuery: "",
       isTyping: false,
       isLoading: false,
+      showBanner: false,
       searchResult: [],
       nominated: [],
     }
@@ -103,14 +104,7 @@ export default {
         this.isTyping = false;
         this.isLoading = false;
         return true;
-      } else if (this.nominated.length < 5) {
-        return false;
       } else {
-        this.nominated = [];
-        this.searchQuery = "";
-        this.searchResult = [];
-        this.isTyping = false;
-        this.isLoading = false;
         return false;
       }
     }
