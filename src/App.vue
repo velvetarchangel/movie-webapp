@@ -6,7 +6,7 @@
       <input class="form-control" id="listSearchInner" type="text" placeholder="Search.." @input= "isTyping = true" v-model= "searchQuery">
       <br>
       </div>
-    <table id="resultTables">
+    <table id="resultTables" :hidden="searchResult.length === 0">
       <th>Results for "{{searchQuery}}"</th>
       <th></th>
       <th></th>
@@ -41,6 +41,7 @@
           </td>
         </tr>
     </table>
+    <div id="paddingBottom"></div>
     <div id="banner" v-if="maxNomination() === true">
       Maximum number of nominations reached
     </div>
@@ -237,5 +238,9 @@ button:disabled {
   background-color: #66ffc2;
   border: 1px solid #003300;
   border-radius: 25px;
+}
+
+#paddingBottom {
+  height: 30px;
 }
 </style>
