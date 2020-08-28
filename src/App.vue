@@ -79,7 +79,7 @@ export default {
     search: function(searchQuery) {
       this.isLoading = true;
       axios
-      .get('http://www.omdbapi.com/?apikey=324544c2&s=' + searchQuery)
+      .get('https://www.omdbapi.com/?apikey=324544c2&s=' + searchQuery)
       .then(response => {
         this.isLoading = false;
         console.log(response);
