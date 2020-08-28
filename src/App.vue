@@ -100,9 +100,15 @@ export default {
     
     maxNomination: function () {
       if (this.nominated.length === 5) {
-        this.searchQuery = "";
         this.isTyping = false;
         this.isLoading = false;
+        return true;
+      } else if (this.nominated.length > 5) {
+        this.isTyping = false;
+        this.isLoading = false;
+        this.searchQuery = "";
+        this.searchResult = [];
+        this.nominated = [];
         return true;
       } else {
         return false;
