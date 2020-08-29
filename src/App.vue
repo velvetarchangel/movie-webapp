@@ -1,56 +1,69 @@
 <template>
   <div id="app">
-      <h1 > The Shoppies </h1>
+  
+    <div>
+    <b-jumbotron id="jumbotron" bg-variant="info" text-variant="white" border-variant="dark">
+      <template v-slot:header>The Shoppies</template>
+
+      <template v-slot:lead>
+        Search and nominate your favourite movies here!
+      </template>
+
+      <hr class="my-4">
       <div id="listSearchOuter">
-      <h2> Movie Titles</h2>
-      <input class="form-control" id="listSearchInner" type="text" placeholder="Search.." @input= "isTyping = true" v-model= "searchQuery">
-      <br>
+        <h2> Movie Titles</h2>
+        <input class="form-control" id="listSearchInner" type="text" placeholder="Search.." @input= "isTyping = true" v-model= "searchQuery">
       </div>
-    <table id="resultTables" :hidden="searchResult.length === 0">
-      <th>Results for "{{searchQuery}}"</th>
-      <th></th>
-      <th></th>
-      <th>Nomination list</th>
-        <tr>
-          <td id="searchResults">
-            <ul class="list-group">
-              <li class="list-group-item" v-for="item in searchResult" :key="item">{{ item.Title }} ({{item.Year}})</li>
-            </ul>
-          </td>
-          <td id="nominateButton">
-            <ul>
-              <li class="list-group-item" v-for="item in searchResult" :key="item">
-                <button id="nomButton" @click="addNomination(item)"
-                  :disabled="nominated.includes(item)"
-                  >Nominate</button>
-              </li>
-            </ul>
-          </td>
-          <td id="spacer" style="width:5%; background-color: lightgrey"></td>
-          <td id="nominations">
-            <ul class="list-group">
-              <li class="list-group-item" v-for="item in nominated" :key="item">{{ item.Title }} ({{item.Year}})</li>
-            </ul>
-          </td>
-          <td id="removeButton">
-            <ul>
-              <li class="list-group-item" v-for="item in nominated" :key="item">
-                <button id="remButton" @click="removeNomination(item, nominated.indexOf(item))">Remove</button>
-              </li>
-            </ul>
-          </td>
-        </tr>
-    </table>
-    <div id="paddingBottom"></div>
-    <div id="banner" v-if="maxNomination() === true">
-      Maximum number of nominations reached
-    </div>
+      <div class="card-deck" :hidden="searchResult.length === 0">
+        <div id= "searchResults" class="card">
+          <img class="card-img-top" src="https://umanitoba.ca/outreach/cm/vol9/no9/cinemaverite.gif" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Results for "{{searchQuery}}"</h5>
+            <p class="card-text">            
+              <b-list-group v-for="item in searchResult" :key="item">
+                <b-list-group-item> {{ item.Title }} ({{item.Year}})
+                  <b-button class="float-right" 
+                  variant="primary" 
+                  id="nomButton" 
+                  @click="addNomination(item)"
+                  :disabled="nominated.includes(item)">Nominate</b-button>
+                </b-list-group-item>
+              </b-list-group>
+            </p>
+          </div>
+        </div>
+        <div id="nominations" class="card">
+          <img class="card-img-top" src="https://pyxis.nymag.com/v1/imgs/736/955/5e25633ce19528813719c5080fee29a360-05-golden-globes-tv.rsquare.w330.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Nominations</h5>
+            <p class="card-text" :hidden="nominated.length > 0">You have not nominated any movies.</p>
+            <p class="card-text" :hidden="nominated.length === 0">
+              <b-list-group v-for="item in nominated" :key="item">
+                <b-list-group-item>{{ item.Title }} ({{item.Year}})
+                  <b-button class="float-right" 
+                    variant="primary" 
+                    id="remButton" 
+                    @click="removeNomination(item, nominated.indexOf(item))">Remove
+                    </b-button>
+                </b-list-group-item>
+              </b-list-group>
+            </p>
+            </div>
+          </div>
+        </div>
+        <div id="banner">
+          <b-alert show variant="warning" v-if="maxNomination() === true">Maximum number of nominations reached</b-alert>
+        </div>
+    </b-jumbotron>
+  </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
   name: 'App',
@@ -128,8 +141,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   background-color: #cccccc;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 
@@ -139,7 +152,6 @@ export default {
   margin-right: auto;
   padding-left: 20px;
   padding-bottom: 30px;
-  background-color: white;
   width: 90%;
   text-align:left;
 }
@@ -150,8 +162,9 @@ h2 {
 
 #listSearchInner {
   background-color: white;
-  width: 90%;
-  height: 30px;
+  width: 98%;
+  font-size: 20px;
+  height: 40px;
 }
 
 .list-group-item {
@@ -159,49 +172,20 @@ h2 {
   margin-bottom: 5px;
 }
 
-table{
-
-  width: 92%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top:30px;
-  border-spacing: 0px;
-}
-
-.resultsTable td {
-  padding: 0 10px 0 0;
-}
-
-#listGroup {
-  background-color: white;
-}
-
 #searchResults {
   background-color: white;
+  margin-left: 7%;
   text-align: left;
-  width: 45%;
+  color: black;
+  width: 40%;
 }
 
 #nominations {
   background-color: white;
+  color: black;
+  margin-right: 7%;
   text-align: left;
-  width: 45%;
-}
-
-#spacer {
-  width: 5%;
-}
-
-tr {
-  background-color: white;
-}
-
-ul {
-  list-style-type: none;
-}
-
-th {
-  text-align: center;
+  width: 40%;
 }
 
 #nomButton {
@@ -229,18 +213,16 @@ button:disabled {
 
 #banner {
   padding-top: 5px;
-  width: 92%;
+  width: 88%;
   text-align: center;
-  color: black;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #66ffc2;
-  border: 1px solid #003300;
-  border-radius: 25px;
 }
 
-#paddingBottom {
-  height: 30px;
+.card-img-top {
+  width: 100%;
+  height: 40vh;
+  object-fit: cover;
 }
 </style>
