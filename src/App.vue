@@ -14,6 +14,9 @@
         <h2> Movie Titles</h2>
         <input class="form-control" id="listSearchInner" type="text" placeholder="Search.." @input= "isTyping = true" v-model= "searchQuery">
       </div>
+      <div id="banner">
+          <b-alert show variant="warning" v-if="maxNomination() === true">Maximum number of nominations reached. Adding another nomination will reset your search and nomination list.</b-alert>
+      </div>
       <div class="card-deck" :hidden="searchResult.length === 0">
         <div id= "searchResults" class="card">
           <img class="card-img-top" src="https://umanitoba.ca/outreach/cm/vol9/no9/cinemaverite.gif" alt="Card image cap">
@@ -50,9 +53,6 @@
             </p>
             </div>
           </div>
-        </div>
-        <div id="banner">
-          <b-alert show variant="warning" v-if="maxNomination() === true">Maximum number of nominations reached</b-alert>
         </div>
     </b-jumbotron>
   </div>
