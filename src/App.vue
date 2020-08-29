@@ -62,6 +62,8 @@
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import {BootstrapVue} from 'bootstrap.vue'
+import {IconsPlugin} from 'bootstrap.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
