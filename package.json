@@ -15,6 +15,7 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "bootstrap-vue": "^2.16.0",
     "lodash": "^4.17.20",
     "axios": "^0.20.0",
     "@vue/cli-plugin-babel": "~4.5.0",
